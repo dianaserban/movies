@@ -95,5 +95,69 @@ document.getElementById("searchButton").addEventListener("click", () => {
     }
 });
 
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Function to fetch and display movies
+    function fetchMovies(page, genre, releaseYear, sortBy) {
+        // If there's a search query, modify apiUrl for searching
+        const searchQuery = document.getElementById("searchInput").value.trim();
+        let apiUrl;
+        if (searchQuery !== "") {
+            apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchQuery}&page=${page}`;
+        } else {
+            apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&page=${page}`;
+            if (genre) {
+                apiUrl += `&with_genres=${genre}`;
+            }
+            if (releaseYear) {
+                apiUrl += `&primary_release_year=${releaseYear}`;
+            }
+            if (sortBy) {
+                apiUrl += `&sort_by=${sortBy}`;
+            }
+        }
+
+        // Fetch data from the API
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results) {
+                    // Display the first 'moviesPerPage' movies
+                    const movies = data.results.slice(0, moviesPerPage);
+                    displayMovies(movies);
+                    // Display pagination
+                    displayPagination(data.total_pages);
+                } else {
+                    // Display message when no movies are found
+                    document.getElementById("movies").innerHTML = "<p>No movies found!</p>";
+                }
+            })
+            .catch(error => {
+                // Display error message if there's an issue fetching data
+                console.error("Error fetching data:", error);
+                document.getElementById("movies").innerHTML = "<p>Error fetching data. Please try again later.</p>";
+            });
+    }
+
+    // Attach event listener to filter and sort options
+    document.getElementById("filterButton").addEventListener("click", () => {
+        const genre = document.getElementById("genreSelect").value;
+        const releaseYear = document.getElementById("releaseYearInput").value;
+        const sortBy = document.getElementById("sortSelect").value;
+        fetchMovies(currentPage, genre, releaseYear, sortBy);
+    });
+});
+
+
+
+
+
 // Call the fetchMovies function with initial page on page load
 window.onload = () => fetchMovies(currentPage);
+
+
+

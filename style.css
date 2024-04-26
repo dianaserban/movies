@@ -10,9 +10,6 @@ body {
 h1 {
   text-align: center;
   font-size: 4em;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 h1 {
   color: black;
@@ -55,6 +52,7 @@ a {
   margin-right: 1em;
   border: 1px solid black;
   cursor: pointer;
+  border-radius: 5px;
 }
 button.active {
   background-color: black;
@@ -96,9 +94,9 @@ footer {
 #searchButton {
   margin-left: 10px; /* Add some space between input and button */
   padding: 10px 15px; /* Add padding for the button */
-  background-color: #3498db; /* Blue background color */
-  color: #fff; /* White text color */
-  border: none; /* Remove default border */
+  background-color: #ccc; /* Blue background color */
+  color: #000; /* White text color */
+  border: 1px solid #ccc; /* Remove default border */
   border-radius: 5px; /* Match container's rounded corners */
   cursor: pointer; /* Indicate clickable behavior */
   font-size: 16px; /* Set font size */
@@ -107,7 +105,54 @@ footer {
 
 #searchButton:hover {
   /* Styling for when hovering over the button */
-  background-color: #2980b9; /* Slightly darker blue on hover */
+  background-color: #310000; /* Slightly darker blue on hover */
+}
+
+.filter-container {
+  margin-bottom: 2em;
+}
+
+/* CSS for genre select */
+#genreSelect {
+  width: 25%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+/* CSS for release year input */
+#releaseYearInput {
+  width: 25%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+/* CSS for sort select */
+#sortSelect {
+  width: 25%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* CSS for search button */
+
+#filterButton {
+  width: 20%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #147b00;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
 }
 
 @media (min-width: 576px) {
