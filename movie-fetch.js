@@ -8,8 +8,11 @@ let apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&page
 function fetchMovies(page) {
     // If there's a search query, modify apiUrl for searching
     const searchQuery = document.getElementById("searchInput").value.trim();
+    let apiUrl;
     if (searchQuery !== "") {
         apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchQuery}&page=${page}`;
+    } else {
+        apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&page=${page}`;
     }
 
     // Fetch data from the API
@@ -33,7 +36,6 @@ function fetchMovies(page) {
             document.getElementById("movies").innerHTML = "<p>Error fetching data. Please try again later.</p>";
         });
 }
-
 // Function to display fetched movies
 function displayMovies(movies) {
     const moviesContainer = document.getElementById("movies");
@@ -58,8 +60,8 @@ function displayPagination(totalPages) {
     const paginationContainer = document.querySelector(".pagination");
     paginationContainer.innerHTML = "";
 
-    // Create pagination buttons
-    for (let i = 1; i <= 3; i++) { // Hardcoded to show 3 pages for demonstration
+    // Create pagination buttons for all available pages
+    for (let i = 1; i <= 3; i++) {
         const button = document.createElement("button");
         button.textContent = i;
         if (i === currentPage) {
