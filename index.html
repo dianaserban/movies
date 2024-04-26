@@ -1,11 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Grid</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie List</title>
 </head>
 <body>
-    
+
+<h1>Movie List</h1>
+<div id="movies"></div>
+
+<script>
+    // Function to fetch and display movies
+    function fetchMovies() {
+        // API endpoint (TMDb API)
+        const apiKey = 'd03f1159e9244ad782c7302c82e8c682'; // Replace with your API key
+        const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
+
+        // Fetch data from the API
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results) {
+                    // Clear previous movies
+                    document.getElementById('movies').innerHTML = '';
+
+                    // Loop through the movies and display them
+                    data.results.forEach(movie => {
+                        const movieElement = document.createElement('div');
+                        movieElement.innerHTML = `
+                            <h2>${movie.title}</h2>
+                            <p>Release Date: ${movie.release_date}</p>
+                            <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title} Poster">
+                        `;
+                        document.getElementById('movies').appendChild(movieElement);
+                    });
+                } else {
+                    document.getElementById('movies').innerHTML = '<p>No movies found!</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                document.getElementById('movies').innerHTML = '<p>Error fetching data. Please try again later.</p>';
+            });
+    }
+
+    // Call the fetchMovies function when the page loads
+    window.onload = fetchMovies;
+</script>
+
 </body>
 </html>
