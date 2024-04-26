@@ -1,17 +1,21 @@
 // Initial page and movies per page
 let currentPage = 1; // Keeps track of the current page
 const moviesPerPage = 12; // Number of movies to display per page
+const apiKey = "d03f1159e9244ad782c7302c82e8c682"; // TMDb API key
+let apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&page=${currentPage}`;
 
 // Function to fetch and display movies
 function fetchMovies(page) {
-    // API endpoint (TMDb API)
-    const apiKey = "d03f1159e9244ad782c7302c82e8c682"; // TMDb API key
-    const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&page=${page}`;
+    // If there's a search query, modify apiUrl for searching
+    const searchQuery = document.getElementById("searchInput").value.trim();
+    if (searchQuery !== "") {
+        apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchQuery}&page=${page}`;
+    }
 
     // Fetch data from the API
     fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
             if (data.results) {
                 // Display the first 'moviesPerPage' movies
                 const movies = data.results.slice(0, moviesPerPage);
@@ -20,15 +24,13 @@ function fetchMovies(page) {
                 displayPagination(data.total_pages);
             } else {
                 // Display message when no movies are found
-                document.getElementById("movies").innerHTML =
-                    "<p>No movies found!</p>";
+                document.getElementById("movies").innerHTML = "<p>No movies found!</p>";
             }
         })
-        .catch((error) => {
+        .catch(error => {
             // Display error message if there's an issue fetching data
             console.error("Error fetching data:", error);
-            document.getElementById("movies").innerHTML =
-                "<p>Error fetching data. Please try again later.</p>";
+            document.getElementById("movies").innerHTML = "<p>Error fetching data. Please try again later.</p>";
         });
 }
 
@@ -82,6 +84,14 @@ function updateActiveButton() {
         }
     });
 }
+
+// Attach event listener to search button
+document.getElementById("searchButton").addEventListener("click", () => {
+    const searchInput = document.getElementById("searchInput").value;
+    if (searchInput.trim() !== "") {
+        fetchMovies(currentPage); // Start fetching from current page for search
+    }
+});
 
 // Call the fetchMovies function with initial page on page load
 window.onload = () => fetchMovies(currentPage);

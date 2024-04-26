@@ -9,7 +9,7 @@ body {
 }
 h1 {
   text-align: center;
-  font-size: 5vh;
+  font-size: 4em;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -47,6 +47,7 @@ h1 {
   padding: 10px 15px;
   margin-right: 1em;
   border: 1px solid black;
+  cursor: pointer;
 }
 button.active {
   background-color: black;
@@ -55,6 +56,51 @@ button.active {
 footer {
   margin-top: 10vh;
   text-align: center;
+}
+/*Search Bar*/
+
+.search-container {
+  display: flex; /* Arrange elements horizontally */
+  align-items: center; /* Align vertically */
+  width: 100%; /* Make the container full width */
+  background-color: #f0f0f0; /* Light gray background */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 0; /* Add some padding inside */
+  margin: 10px 0; /* Add some margin for spacing */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+#searchInput {
+  flex: 1; /* Allow input to grow and fill most of the space */
+  border: none; /* Remove default border */
+  outline: none; /* Remove default outline on focus */
+  padding: 10px; /* Add padding for better readability */
+  font-size: 16px; /* Set font size */
+  background-color: #fff; /* White background for input */
+  border-radius: 5px; /* Match container's rounded corners */
+  margin-left: 10px;
+}
+
+#searchInput:focus {
+  /* Styling for when the input is focused */
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); /* Add a light blue focus shadow */
+}
+
+#searchButton {
+  margin-left: 10px; /* Add some space between input and button */
+  padding: 10px 15px; /* Add padding for the button */
+  background-color: #3498db; /* Blue background color */
+  color: #fff; /* White text color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Match container's rounded corners */
+  cursor: pointer; /* Indicate clickable behavior */
+  font-size: 16px; /* Set font size */
+  margin-right: 10px;
+}
+
+#searchButton:hover {
+  /* Styling for when hovering over the button */
+  background-color: #2980b9; /* Slightly darker blue on hover */
 }
 
 @media (min-width: 576px) {
