@@ -40,20 +40,57 @@ function fetchMovies(page) {
 function displayMovies(movies) {
     const moviesContainer = document.getElementById("movies");
     moviesContainer.innerHTML = "";
+
+    // Define the openModal function inside the displayMovies function
+    function openModal(movie) {
+        const title = movie.querySelector(".movie-details h2").textContent;
+        const thumbnailSrc = movie.querySelector("img").getAttribute("src");
+        const releaseDate = movie.querySelector(".movie-details .release-date").textContent;
+
+
+
+        // Populate modal with movie details
+        document.getElementById("modalTitle").textContent = title;
+        document.getElementById("modalThumbnail").setAttribute("src", thumbnailSrc);
+        document.getElementById("modalYear").textContent = "Release Date: " + releaseDate;
+
+
+
+        // Show the modal
+        modal.style.display = "block";
+    }
+
     // Iterate through each movie and create HTML elements for display
     movies.forEach((movie) => {
         const movieElement = document.createElement("div");
         movieElement.classList.add("movie");
-        movieElement.innerHTML = `
+
+        // Create an anchor tag to wrap the movie details
+        const anchorTag = document.createElement("a");
+        anchorTag.href = "#"; // Set href to "#" to make it clickable
+        anchorTag.addEventListener("click", (event) => {
+            event.preventDefault(); // Prevent default anchor behavior
+            openModal(movieElement); // Open modal when clicked
+        });
+
+        // Create HTML elements for movie details
+        anchorTag.innerHTML = `
             <img src="https://image.tmdb.org/t/p/original/${movie.poster_path}" alt="${movie.title} Poster">
             <div class="movie-details">
                 <h2>${movie.title}</h2>
-                <p>Release Date: ${movie.release_date}</p>
+                <p class="release-date">Release Date: ${movie.release_date}</p>
+                
             </div>
         `;
+
+        // Append the anchor tag to the movie element
+        movieElement.appendChild(anchorTag);
+
+        // Append the movie element to the movies container
         moviesContainer.appendChild(movieElement);
     });
 }
+
 
 // Function to display pagination buttons
 function displayPagination(totalPages) {
@@ -151,6 +188,64 @@ document.addEventListener("DOMContentLoaded", function () {
         fetchMovies(currentPage, genre, releaseYear, sortBy);
     });
 });
+
+
+
+
+
+
+// JavaScript for displaying modal and populating with movie details
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("modal");
+    const closeModalButton = document.getElementById("closeModalButton");
+    const closeIcon = document.querySelector(".close");
+
+    // Function to open modal with movie details
+    function openModal(movie) {
+        const title = movie.querySelector(".movie-details h2").textContent;
+        const thumbnailSrc = movie.querySelector("img").getAttribute("src");
+        const genre = movie.querySelector(".movie-details p.genre").textContent;
+        const year = movie.querySelector(".movie-details p.release-date").textContent;
+
+
+        // Populate modal with movie details
+        document.getElementById("modalTitle").textContent = title;
+        document.getElementById("modalThumbnail").setAttribute("src", thumbnailSrc);
+        document.getElementById("modalGenre").textContent = "Genre: " + genre;
+        document.getElementById("modalYear").textContent = "Year: " + year;
+
+
+        // Show the modal
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on a movie thumbnail
+    document.querySelectorAll(".movie").forEach(movie => {
+        movie.addEventListener("click", function () {
+            openModal(this);
+        });
+    });
+
+    // When the user clicks on the close button, close the modal
+    closeModalButton.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    // When the user clicks on the close icon, close the modal
+    closeIcon.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    // When the user clicks outside of the modal, close it
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
+
+
 
 
 
