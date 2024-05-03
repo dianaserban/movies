@@ -1,20 +1,21 @@
 body {
-  max-width: 1080px;
+  max-width: 1280px;
   margin: 0 auto;
   font-family: "DM Sans", Sans-serif;
-  font-size: 1.7vh;
+  font-size: calc(0.55em + 1vmin);
   font-weight: 400;
-  padding: 0 5vh;
+  padding: 0 2vw;
   background-color: #f1f1f1;
 }
 h1 {
   text-align: center;
-  font-size: 4em;
+  font-size: clamp(2rem, 5vw, 3rem);
 }
 h1 {
   color: black;
 }
 a {
+  color: #000;
   text-decoration: none;
 }
 
@@ -105,7 +106,8 @@ footer {
 
 #searchButton:hover {
   /* Styling for when hovering over the button */
-  background-color: #310000; /* Slightly darker blue on hover */
+  background-color: #000;
+  color: white;
 }
 
 .filter-container {
@@ -174,7 +176,7 @@ footer {
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 40%;
 }
 
 .close {
@@ -209,13 +211,69 @@ footer {
   margin-top: 20px;
 }
 
-@media (min-width: 576px) {
+@media only screen and (min-device-width: 575px) and (max-device-width: 1200px) {
   /* Tablet */
   #movies {
     grid-template-columns: repeat(2, 1fr);
   }
+  #genreSelect,
+  #releaseYearInput,
+  #sortSelect,
+  #filterButton {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    display: block;
+  }
+  #releaseYearInput {
+    padding: 10px 0;
+  }
+  #releaseYearInput::placeholder {
+    padding-left: 15px;
+  }
+  #filterButton {
+    float: none;
+  }
 }
+@media only screen and (max-width: 575px) {
+  /*Small Screens*/
 
+  #filterButton {
+    font-size: 16px;
+  }
+  .search-container {
+    padding: 0;
+  }
+  #searchButton {
+    margin: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  #searchInput {
+    margin: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  #genreSelect,
+  #releaseYearInput,
+  #sortSelect,
+  #filterButton {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    display: block;
+  }
+  #releaseYearInput {
+    padding: 10px 0;
+  }
+  #releaseYearInput::placeholder {
+    padding-left: 15px;
+  }
+  #filterButton {
+    float: none;
+  }
+}
 @media (min-width: 768px) {
   /* Desktop */
   #movies {
